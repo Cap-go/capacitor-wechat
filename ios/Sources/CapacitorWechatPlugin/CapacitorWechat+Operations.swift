@@ -11,8 +11,8 @@ extension CapacitorWechat {
                 try configure(appId: storedAppId, universalLink: storedLink)
             } catch {
                 // Log the error for debugging but don't crash during bootstrap
-                print("CapacitorWechat: Failed to configure during bootstrap: \(error.localizedDescription)")
-                print("CapacitorWechat: Make sure to configure universalLink in capacitor.config or call initialize() with valid parameters")
+                NSLog("CapacitorWechat: Failed to configure during bootstrap: %@", error.localizedDescription)
+                NSLog("CapacitorWechat: Make sure to configure universalLink in capacitor.config or call initialize() with valid parameters")
             }
         }
     }
