@@ -7,23 +7,36 @@ extension CapacitorWechat {
         let storedAppId = appId ?? UserDefaults.standard.string(forKey: storageAppIdKey)
         let storedLink = universalLink ?? UserDefaults.standard.string(forKey: storageUniversalLinkKey)
         if let storedAppId {
-            try? configure(appId: storedAppId, universalLink: storedLink)
+            do {
+                try configure(appId: storedAppId, universalLink: storedLink)
+            } catch {
+                // Log the error for debugging but don't crash during bootstrap
+                NSLog("CapacitorWechat: Failed to configure during bootstrap: %@", error.localizedDescription)
+                NSLog("CapacitorWechat: Make sure to configure universalLink in capacitor.config or call initialize() with valid parameters")
+            }
         }
     }
 
     func configure(appId: String, universalLink: String?) throws {
+        // Validate appId is not empty
+        guard !appId.isEmpty else {
+            throw WechatError.invalidArguments("appId cannot be empty")
+        }
+        
+        // Validate universalLink is provided and not empty
+        // WeChat SDK requires a valid universal link for iOS and will crash with empty string
+        guard let universalLink = universalLink, !universalLink.isEmpty else {
+            throw WechatError.invalidArguments("universalLink is required for iOS. Please configure it in capacitor.config or pass it to initialize()")
+        }
+        
         self.appId = appId
         self.universalLink = universalLink
 
         UserDefaults.standard.set(appId, forKey: storageAppIdKey)
-        if let universalLink {
-            UserDefaults.standard.set(universalLink, forKey: storageUniversalLinkKey)
-        } else {
-            UserDefaults.standard.removeObject(forKey: storageUniversalLinkKey)
-        }
+        UserDefaults.standard.set(universalLink, forKey: storageUniversalLinkKey)
 
         DispatchQueue.main.async {
-            WXApi.registerApp(appId, universalLink: universalLink ?? "")
+            WXApi.registerApp(appId, universalLink: universalLink)
         }
     }
 

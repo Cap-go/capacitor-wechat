@@ -67,6 +67,8 @@ Add the following to your `Info.plist`:
 
 You'll need to integrate the WeChat SDK into your iOS project. Add the WeChat SDK to your `Podfile` or download it from the [WeChat Open Platform](https://developers.weixin.qq.com/doc/oplatform/en/Mobile_App/Access_Guide/iOS.html).
 
+**Important:** iOS requires a valid Universal Link to be configured. You must set the `universalLink` parameter either in your `capacitor.config` (as shown above) or when calling `initialize()`. Without a valid Universal Link, the app will crash during WeChat SDK initialization. Learn more about configuring Universal Links in the [WeChat iOS documentation](https://developers.weixin.qq.com/doc/oplatform/en/Mobile_App/Access_Guide/iOS.html).
+
 ### Android
 
 Add the following to your `AndroidManifest.xml`:
@@ -502,6 +504,43 @@ const openMiniProgram = async () => {
 3. **Universal Links (iOS)**: For iOS 13+, you need to configure Universal Links for WeChat callbacks.
 
 4. **Backend Integration**: Authentication and payment features require backend integration to exchange codes for tokens and prepare payment parameters.
+
+## Troubleshooting
+
+### iOS: App crashes with NSException on startup
+
+**Problem:** App crashes immediately when WeChat plugin loads with an NSException error.
+
+**Solution:** This usually happens when the `universalLink` is not configured or is empty. Ensure you have set the `universalLink` in your `capacitor.config` or when calling `initialize()`:
+
+```typescript
+// In capacitor.config.ts
+plugins: {
+  CapacitorWechat: {
+    appId: 'wx1234567890abcdef',
+    universalLink: 'https://your-domain.com/universal-link/'  // Required for iOS!
+  }
+}
+
+// Or in your app initialization
+await CapacitorWechat.initialize({
+  appId: 'wx1234567890abcdef',
+  universalLink: 'https://your-domain.com/universal-link/'
+});
+```
+
+Learn how to set up Universal Links for WeChat in the [WeChat iOS documentation](https://developers.weixin.qq.com/doc/oplatform/en/Mobile_App/Access_Guide/iOS.html).
+
+### iOS: Build errors with WechatOpenSDK
+
+**Problem:** Build fails with errors about missing WechatOpenSDK module.
+
+**Solution:** Make sure the WeChat SDK is properly installed via CocoaPods. Run:
+
+```bash
+cd ios/App
+pod install
+```
 
 ## Credits
 
