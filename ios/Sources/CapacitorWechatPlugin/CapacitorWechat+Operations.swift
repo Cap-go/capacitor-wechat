@@ -49,8 +49,10 @@ extension CapacitorWechat {
         guard WXApi.isWXAppInstalled() else {
             throw WechatError.wechatNotInstalled
         }
-        guard authCompletion == nil else {
-            throw WechatError.operationInProgress("auth")
+        // Clean up any stale auth completion handler
+        if let existingCompletion = authCompletion {
+            existingCompletion(.failure(WechatError.userCancelled))
+            NSLog("CapacitorWechat: Replaced stale auth request")
         }
         authCompletion = completion
 
@@ -71,8 +73,10 @@ extension CapacitorWechat {
         guard WXApi.isWXAppInstalled() else {
             throw WechatError.wechatNotInstalled
         }
-        guard shareCompletion == nil else {
-            throw WechatError.operationInProgress("share")
+        // Clean up any stale share completion handler
+        if let existingCompletion = shareCompletion {
+            existingCompletion(.failure(WechatError.userCancelled))
+            NSLog("CapacitorWechat: Replaced stale share request")
         }
         shareCompletion = completion
 
@@ -97,8 +101,10 @@ extension CapacitorWechat {
         guard WXApi.isWXAppInstalled() else {
             throw WechatError.wechatNotInstalled
         }
-        guard payCompletion == nil else {
-            throw WechatError.operationInProgress("payment")
+        // Clean up any stale payment completion handler
+        if let existingCompletion = payCompletion {
+            existingCompletion(.failure(WechatError.userCancelled))
+            NSLog("CapacitorWechat: Replaced stale payment request")
         }
         guard let timeStamp = UInt32(options.timeStamp) else {
             throw WechatError.invalidArguments("Invalid timestamp value.")
@@ -127,8 +133,10 @@ extension CapacitorWechat {
         guard WXApi.isWXAppInstalled() else {
             throw WechatError.wechatNotInstalled
         }
-        guard miniProgramCompletion == nil else {
-            throw WechatError.operationInProgress("miniProgram")
+        // Clean up any stale mini program completion handler
+        if let existingCompletion = miniProgramCompletion {
+            existingCompletion(.failure(WechatError.userCancelled))
+            NSLog("CapacitorWechat: Replaced stale mini program request")
         }
         guard !options.username.isEmpty else {
             throw WechatError.invalidArguments("username is required.")
@@ -155,8 +163,10 @@ extension CapacitorWechat {
         guard WXApi.isWXAppInstalled() else {
             throw WechatError.wechatNotInstalled
         }
-        guard invoiceCompletion == nil else {
-            throw WechatError.operationInProgress("invoice")
+        // Clean up any stale invoice completion handler
+        if let existingCompletion = invoiceCompletion {
+            existingCompletion(.failure(WechatError.userCancelled))
+            NSLog("CapacitorWechat: Replaced stale invoice request")
         }
 
         guard

@@ -517,9 +517,12 @@ public class CapacitorWechatPlugin extends Plugin implements WechatResponseListe
     }
 
     private boolean registerPendingCall(int type, PluginCall call) {
-        if (pendingCalls.containsKey(type)) {
-            call.reject(WechatConstants.ERROR_OPERATION_IN_PROGRESS);
-            return false;
+        PluginCall existingCall = pendingCalls.get(type);
+        if (existingCall != null) {
+            // Clean up the existing stale call by rejecting it
+            existingCall.setKeepAlive(false);
+            existingCall.reject("Request superseded by new request");
+            Log.w(TAG, "Replaced stale pending call of type " + type);
         }
         pendingCalls.put(type, call);
         return true;
