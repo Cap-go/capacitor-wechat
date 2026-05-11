@@ -1,6 +1,6 @@
 {
   "name": "@capgo/capacitor-wechat",
-  "version": "8.0.31",
+  "version": "8.0.32",
   "description": "WeChat SDK for Capacitor - enables authentication, sharing, payments, and mini-programs",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
