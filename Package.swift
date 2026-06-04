@@ -10,7 +10,7 @@ let package = Package(
             targets: ["CapacitorWechatPlugin"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "8.0.0"),
+        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "8.4.0"),
         .package(url: "https://github.com/yanyin1986/WechatOpenSDK.git", from: "2.0.7")
     ],
     targets: [
