@@ -4,7 +4,7 @@ import pkg from './package.json';
 
 const config: CapacitorConfig = {
   appId: 'app.capgo.wechat',
-  appName: 'WeChat Example',
+  appName: '@capgo/capacitor-wechat',
   webDir: 'dist',
   plugins: {
     CapacitorWechat: {
