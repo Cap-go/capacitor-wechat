@@ -3,7 +3,7 @@ import Capacitor
 
 @objc(CapacitorWechatPlugin)
 public class CapacitorWechatPlugin: CAPPlugin, CAPBridgedPlugin {
-    private let pluginVersion: String = "8.0.37"
+    private let pluginVersion: String = "8.0.38"
     public let identifier = "CapacitorWechatPlugin"
     public let jsName = "CapacitorWechat"
     public let pluginMethods: [CAPPluginMethod] = [
