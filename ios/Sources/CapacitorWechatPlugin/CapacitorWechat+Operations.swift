@@ -44,7 +44,7 @@ extension CapacitorWechat {
         WXApi.isWXAppInstalled()
     }
 
-    func auth(scope: String, state: String?, presenter: UIViewController, completion: @escaping (Result<WechatAuthResponse, Error>) -> Void) throws {
+    func auth(scope: String, state: String?, presenter _: UIViewController, completion: @escaping (Result<WechatAuthResponse, Error>) -> Void) throws {
         try ensureConfigured()
         guard WXApi.isWXAppInstalled() else {
             throw WechatError.wechatNotInstalled
@@ -56,11 +56,13 @@ extension CapacitorWechat {
         }
         authCompletion = completion
 
+        // Use send(_:) when WeChat is installed. sendAuthReq(_:viewController:) is for
+        // devices without WeChat and can emit a spurious user-cancel while opening WeChat.
         DispatchQueue.main.async {
             let req = SendAuthReq()
             req.scope = scope
             req.state = state ?? UUID().uuidString
-            WXApi.sendAuthReq(req, viewController: presenter, delegate: self) { success in
+            WXApi.send(req) { success in
                 if !success {
                     self.consumeAuth(with: .failure(WechatError.requestFailed))
                 }
@@ -199,6 +201,15 @@ extension CapacitorWechat {
     @discardableResult
     func handleOpenURL(_ url: URL) -> Bool {
         WXApi.handleOpen(url, delegate: self)
+    }
+
+    @discardableResult
+    func handleUniversalLink(_ url: URL) -> Bool {
+        // Capacitor posts only the URL on .capacitorOpenUniversalLink; rebuild the
+        // NSUserActivity WeChat's SDK expects.
+        let activity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        activity.webpageURL = url
+        return WXApi.handleOpenUniversalLink(activity, delegate: self)
     }
 
     @discardableResult
