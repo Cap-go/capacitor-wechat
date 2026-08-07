@@ -24,8 +24,8 @@ public class CapacitorWechatPlugin: CAPPlugin, CAPBridgedPlugin {
         NotificationCenter.default.addObserver(self, selector: #selector(handleOpenURL(_:)), name: .capacitorOpenURL, object: nil)
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(handleContinueUserActivity(_:)),
-            name: Notification.Name("capacitorContinueUserActivity"),
+            selector: #selector(handleOpenUniversalLink(_:)),
+            name: .capacitorOpenUniversalLink,
             object: nil
         )
 
@@ -225,11 +225,11 @@ public class CapacitorWechatPlugin: CAPPlugin, CAPBridgedPlugin {
         _ = implementation.handleOpenURL(url)
     }
 
-    @objc private func handleContinueUserActivity(_ notification: Notification) {
+    @objc private func handleOpenUniversalLink(_ notification: Notification) {
         guard let object = notification.object as? [String: Any],
-              let activity = object["userActivity"] as? NSUserActivity else {
+              let url = object["url"] as? URL else {
             return
         }
-        _ = implementation.handleUniversalLink(activity)
+        _ = implementation.handleUniversalLink(url)
     }
 }
