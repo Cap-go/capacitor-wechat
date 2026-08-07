@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+      Android 11+ package visibility: required for isWXAppInstalled() / isInstalled().
+      Without this, the OS always reports WeChat as not installed.
+    -->
+    <queries>
+        <package android:name="com.tencent.mm" />
+    </queries>
+</manifest>
