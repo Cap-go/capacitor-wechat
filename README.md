@@ -96,7 +96,15 @@ You'll need to integrate the WeChat SDK into your iOS project. Add the WeChat SD
 
 ### Android
 
-Add the following to your `AndroidManifest.xml`:
+The plugin ships an `AndroidManifest.xml` with the Android 11+ package visibility query for WeChat (`com.tencent.mm`). That is required for `isInstalled()` / `isWXAppInstalled()` to work on Android 11 and newer. If you maintain a custom manifest merge setup, add:
+
+```xml
+<queries>
+  <package android:name="com.tencent.mm" />
+</queries>
+```
+
+Also add the WeChat callback activity to your app `AndroidManifest.xml`:
 
 ```xml
 <manifest>
