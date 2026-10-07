@@ -1,12 +1,28 @@
 # capacitor-wechat
-<a href="https://capgo.app/"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-wechat" alt="Capgo - Instant updates for Capacitor" /></a>
+
+Add WeChat login, sharing, payments and mini-programs to your Capacitor app with the official WeChat Open SDK.
+
+<a href="https://capgo.app/?ref=plugin_wechat"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-wechat" alt="Capgo - Instant updates for Capacitor" /></a>
 
 <div align="center">
-  <h2><a href="https://capgo.app/?ref=plugin_wechat"> ➡️ Get Instant updates for your App with Capgo</a></h2>
-  <h2><a href="https://capgo.app/consulting/?ref=plugin_wechat"> Missing a feature? We'll build the plugin for you 💪</a></h2>
+  <p><b>Capgo</b>: open-source live updates for Ionic and Capacitor apps. Ship OTA fixes and features instantly, without waiting for app store review.</p>
+  <h2><a href="https://capgo.app/register/?ref=plugin_wechat">➡️ Get started for free</a></h2>
+  <p>14-day unlimited free trial. No credit card required</p>
+  <p><a href="https://capgo.app/consulting/?ref=plugin_wechat">Missing a feature? We'll build the plugin for you 💪</a></p>
 </div>
 
-WeChat SDK for Capacitor - enables authentication, sharing, payments, and mini-programs.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Cap-go/capacitor-wechat/main/assets/github-social-preview.png" alt="@capgo/capacitor-wechat for Capacitor apps" width="300" />
+</p>
+
+## Key features
+
+- **Setup**: `initialize()` with your WeChat app ID and `isInstalled()` to check for the app.
+- **Login**: `auth()` runs the WeChat OAuth flow.
+- **Sharing**: `share()` to a chat, Moments or Favorites.
+- **Payments**: `sendPaymentRequest()` for WeChat Pay.
+- **Mini-programs and invoices**: `openMiniProgram()` and `chooseInvoice()`.
+- **Platforms**: iOS and Android. Not available on web.
 
 ## Documentation
 
