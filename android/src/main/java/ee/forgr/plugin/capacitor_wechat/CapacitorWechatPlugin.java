@@ -57,7 +57,7 @@ public class CapacitorWechatPlugin extends Plugin implements WechatResponseListe
     private String currentAppId;
     private String universalLink;
     private IWXAPI api;
-    private final String pluginVersion = "8.0.53";
+    private final String pluginVersion = "8.0.54";
 
     @Override
     public void load() {
